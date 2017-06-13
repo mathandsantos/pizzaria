@@ -116,4 +116,14 @@ postBebidaR pedId = do
 getExcluirPedidoR :: PedidoId -> Handler Html
 getExcluirPedidoR pid = do
                         runDB $ delete pid
-                        redirect HomeR                    
+                        redirect HomeR              
+                        ]
+getExcluirPizzaR :: PedidoPizzaId -> Handler Html
+getExcluirPizzaR ppId = do
+                       runDB $ delete ppId
+                       redirect HomeR
+
+getExcluirBebidaR :: PedidoBebidaId -> Handler Html
+getExcluirBebidaR pbId = do
+                     runDB $ delete pbId
+                     redirect HomeR                        
