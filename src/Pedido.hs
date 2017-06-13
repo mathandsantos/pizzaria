@@ -130,3 +130,41 @@ getExcluirBebidaR pbId = do
                      
 somarTotal :: [Double] -> Double
 somarTotal a = foldl (+) 0 a                     
+
+
+getListarPedidoR :: PedidoId -> Handler Html
+getListarPedidoR ppId = do
+                     pedidoP <- runDB $ selectList [PedidoPizzaPedidoId ==. ppId] [] -- Entidade PedidoPizza
+                     userPedP <- return $ fmap (pedidoPizzaPizzaId . entityVal) $ pedidoP -- Lista PizzaID
+                     
+                     userPedBo <- return $ fmap (pedidoPizzaBordaId . entityVal) $ pedidoP -- Lista BordaID
+                     listaBordas <- sequence $ map (\borda -> runDB $ get404 borda) userPedBo --LIST ENTIDADE Borda
+                     listaVlBorda <- return $ map(\borda -> bordaVlBorda borda) listaBordas
+                     --listaPizzas <- sequence $ map (\pizza -> runDB $ selectFirst [PizzaId ==. pizza][]) userPed --LIST ENTIDADE PIZZA
+                     listaPizzas <- sequence $ map (\pizza -> runDB $ get404 pizza) userPedP --LIST ENTIDADE PIZZA
+                     listaNmPizza <- return $ map(\pizza -> pizzaNmPizza pizza) listaPizzas --Lista com Nomes de Pizzas
+                     listaVlPizza <- return $ map(\pizza -> pizzaVlPizza pizza) listaPizzas --Lista com Nomes de Pizzas
+                     
+                     --listaTudo <- sequence $ map (\pizza borda -> runDB $ get404 $ pizza . borda) userPedP
+                     --filmes <- sequence $ fmap (\r -> runDB $ get404 $ reviewFilme $ entityVal r) listaReviews
+                     --listaTudo <- sequence $ fmap (\r -> runDB $ get404 $ reviewFilme $ entityVal r) listaReviews 
+                     -- map (\pizza -> show pizza) listaNmPizza -- Mostra todas as pizzas
+                     pedidoB <- runDB $ selectList [PedidoBebidaPedidoId ==. ppId] [] -- Entidade PedidoBebida
+                     userPedB <- return $ fmap (pedidoBebidaBebidaId . entityVal) $ pedidoB -- Lista BebidaID
+                     
+                     listaBebidas <- sequence $ map (\bebida -> runDB $ get404 bebida) userPedB --LIST ENTIDADE BEBIDAS
+                     listaNmBebida <- return $ map(\bebida -> bebidaNmBebida bebida) listaBebidas --Lista com Nomes de Bebidas
+                     listaVlBebida <- return $ map(\bebida -> bebidaVlBebida bebida) listaBebidas --Lista com Nomes de Bebidas
+                     
+                     --pedidoBo <- runDB $ selectList [PedidoPizzaBordaId ==. ppId] [] -- Entidade Borda
+                     --userPedBo <- return $ fmap (pedidoBebidaBebidaId . entityVal) $ pedidoB -- Lista BebidaID
+                     
+                     --listaBebidas <- sequence $ map (\bebida -> runDB $ get404 bebida) userPedB --LIST ENTIDADE BEBIDAS
+                     --listaNmBebida <- return $ map(\bebida -> bebidaNmBebida bebida) listaBebidas --Lista com Nomes de Bebidas
+                     let soma = somarTotal(listaVlBebida) + somarTotal(listaVlBorda) + somarTotal(listaVlPizza)
+                     
+                     
+                     listaPiz <- runDB $ selectList [] [Asc PizzaNmPizza]
+                     listaBeb <- runDB $ selectList [] [Asc BebidaNmBebida]
+                     emailS <- lookupSession "_USER"
+                     let certo = do fromJust(emailS)
