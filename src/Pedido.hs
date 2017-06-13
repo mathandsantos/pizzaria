@@ -32,6 +32,14 @@ formPiz pedId= renderDivs $ PedidoPizza <$>
              areq (selectField bords) "Borda" Nothing
 
 
+pizs = do
+       entidades <- runDB $ selectList [] [Asc PizzaNmPizza] 
+       optionsPairs $ fmap (\ent -> (pizzaNmPizza $ entityVal ent, entityKey ent)) entidades
+       
+bords = do
+       entidades <- runDB $ selectList [] [Asc BordaId] 
+       optionsPairs $ fmap (\ent -> (bordaNmBorda $ entityVal ent, entityKey ent)) entidades  
+
 
 getPedidoR :: Handler Html
 getPedidoR = do
