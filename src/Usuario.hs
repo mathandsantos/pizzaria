@@ -10,6 +10,19 @@ import Data.Text
 
 import Database.Persist.Postgresql
 
+formUsu :: Form Usuario
+formUsu = renderDivs $ Usuario <$>
+             areq emailField "E-mail" Nothing <*>
+             areq passwordField "Senha" Nothing <*>
+             areq textField "Nome" Nothing <*>
+             areq textField "Telefone" Nothing <*>
+             areq textField "CEP" Nothing <*>
+             areq textField "Cidade" Nothing <*>
+             areq textField "Bairro" Nothing <*>
+             areq textField "Endereco" Nothing <*>
+             areq textField "Numero" Nothing <*> -- areq é obrigatório
+             aopt textField "Complemento" Nothing -- aopt é opcional
+
 formUsuA :: Form Usuario
 formUsuA =  renderTable $ Usuario <$>
                 areq loginField "" Nothing <*>
