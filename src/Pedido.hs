@@ -168,3 +168,90 @@ getListarPedidoR ppId = do
                      listaBeb <- runDB $ selectList [] [Asc BebidaNmBebida]
                      emailS <- lookupSession "_USER"
                      let certo = do fromJust(emailS)
+                     defaultLayout $ do
+                         addStylesheetRemote "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+                         addStylesheet (StaticR style_css)
+                         addScriptRemote "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+                         addScriptRemote "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+                         toWidgetHead [hamlet|
+                           <meta charset="UTF-8">
+                           <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                           <meta name="keywords" content="Teste, Haskell">
+                         |]                     
+                         [whamlet|
+                            <header>
+                              <nav .navbar .navbar-default>
+                                 <div .container-fluid>
+                                    <div .navbar-header>
+                                       <a href=@{HomeR} .navbar-brand .navbar-left>
+                                          Pizzaria
+                                       <button type="button" .navbar-toggle .collapsed 
+                                       data-toggle="collapse" data-target="#bs-example-navbar-collapsed-1"
+                                       aria-expanded="false">
+                                       <span .sr-only>
+                                          Toggle Navigation
+                                       <span .icon-bar>
+                                       <span .icon-bar>
+                                       <span .icon-bar>
+                                    <div .collapse .navbar-collapse #bs-example-navbar-collapsed-1>
+                                       <ul .nav .navbar-nav .navbar-right>
+                                          <li>
+                                             <a href=@{PedidoR} .text-center .nav-custom .ye>
+                                                FAZER PEDIDO
+                                          <li>
+                                             <a href=@{UsAltR} .text-center .nav-custom .ye>
+                                                ALTERAR
+                                          <li>
+                                             <a href=@{LogoutR} .text-center .nav-custom .ye>
+                                                (#{certo}) DESLOGAR
+                            <main>
+                               <div .container .mar-top>
+                                 <div .col-xs-6 col-xs-offset-4 .col-sm-6 .col-sm-offset-4 .col-md-6 .col-md-offset-4>
+                                    <a .btn .btn-default href=@{PizzaR ppId} role="button">
+                                       Adicionar Pizza
+                                    <a .btn .btn-default href=@{BebidaR ppId} role="button">
+                                       Adicionar Bebida
+                                 <table .table .table-bordered .table-striped .text-center .mar-top>
+                                    <th .text-center>
+                                       Pizza
+                                    <th .text-center>
+                                       Preço
+                                    $forall pizza <- listaPizzas  
+                                       <tr>
+                                          <td>
+                                              #{pizzaNmPizza pizza}
+                                          <td>
+                                              R$ #{pizzaVlPizza pizza}
+                       
+                                 <table .table .table-bordered .table-striped .text-center .mar-top>
+                                    <th .text-center>
+                                       Borda
+                                    <th .text-center>
+                                       Preço
+                                    $forall bor <- listaBordas
+                                      <tr> 
+                                          <td>
+                                              #{bordaNmBorda bor} 
+                                          <td>
+                                              R$ #{bordaVlBorda bor}
+                                                   
+                                 <table .table .table-bordered .table-striped .text-center .mar-top>
+                                    <th .text-center>
+                                       Bebida
+                                    <th .text-center>
+                                       Preço
+                                    $forall beb <- listaBebidas
+                                      <tr> 
+                                          <td>
+                                              #{bebidaNmBebida beb} 
+                                          <td>
+                                              R$ #{bebidaVlBebida beb}
+                                              
+                                 <h3 .text-center .mar-top>
+                                    Valor total: R$ #{show soma}
+                                 
+                                 <div .col-xs-5 col-xs-offset-5 .col-sm-5 .col-sm-offset-5 .col-md-5 .col-md-offset-5>
+                                    <a .btn .btn-default href=@{ConfirmarPedR ppId} role="button">
+                                       Confirmar Pedido
+                                             
+                         |]                     
