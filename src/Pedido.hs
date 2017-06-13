@@ -126,4 +126,7 @@ getExcluirPizzaR ppId = do
 getExcluirBebidaR :: PedidoBebidaId -> Handler Html
 getExcluirBebidaR pbId = do
                      runDB $ delete pbId
-                     redirect HomeR                        
+                     redirect HomeR            
+                     
+somarTotal :: [Double] -> Double
+somarTotal a = foldl (+) 0 a                     
