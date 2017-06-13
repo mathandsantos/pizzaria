@@ -161,4 +161,19 @@ coField = Field
       |]
   , fieldEnctype = UrlEncoded
   }
-     
+  
+  senhaField :: Field Handler Text
+senhaField = Field
+   { fieldParse = \rawVals _ ->
+                case rawVals of
+                  [a] -> return $ Right $ Just a
+                  [] -> return $ Right Nothing
+   , fieldView = \idAttr nameAttr otherAttrs eResult isReq ->
+       [whamlet|
+       <div .form-group>
+            <label for="#user">
+               Senha:
+            <input type="password" .form-control placeholder="" id=#{idAttr}-confirm name=#{nameAttr} *{otherAttrs} type=textField/>
+       |]
+   , fieldEnctype = UrlEncoded
+   }   
