@@ -77,4 +77,88 @@ cepField = Field
             <input type="text" .form-control placeholder="" id=#{idAttr}-confirm name=#{nameAttr} *{otherAttrs} type=textField/>
        |]
    , fieldEnctype = UrlEncoded
-   }   
+   }
+   
+cidadeField :: Field Handler Text
+cidadeField = Field
+   { fieldParse = \rawVals _ ->
+                case rawVals of
+                  [a] -> return $ Right $ Just a
+                  [] -> return $ Right Nothing
+   , fieldView = \idAttr nameAttr otherAttrs eResult isReq ->
+       [whamlet|
+       <div .form-group>
+            <label for="#cidade">
+               Cidade: 
+            <input type="text" .form-control placeholder="" id=#{idAttr}-confirm name=#{nameAttr} *{otherAttrs} type=textField/>
+       |]
+   , fieldEnctype = UrlEncoded
+      
+   }
+   
+
+bairroField :: Field Handler Text
+bairroField = Field
+   { fieldParse = \rawVals _ ->
+                case rawVals of
+                  [a] -> return $ Right $ Just a
+                  [] -> return $ Right Nothing
+   , fieldView = \idAttr nameAttr otherAttrs eResult isReq ->
+       [whamlet|
+       <div .form-group>
+            <label for="#bairro">
+               Bairro: 
+            <input type="text" .form-control placeholder="" id=#{idAttr}-confirm name=#{nameAttr} *{otherAttrs} type=textField/>
+       |]
+   , fieldEnctype = UrlEncoded
+   }
+
+endField :: Field Handler Text
+endField = Field
+   { fieldParse = \rawVals _ ->
+                case rawVals of
+                  [a] -> return $ Right $ Just a
+                  [] -> return $ Right Nothing
+   , fieldView = \idAttr nameAttr otherAttrs eResult isReq ->
+       [whamlet|
+       <div .form-group>
+            <label for="#end">
+               Endereco: 
+            <input type="text" .form-control placeholder="" id=#{idAttr}-confirm name=#{nameAttr} *{otherAttrs} type=textField/>
+       |]
+   , fieldEnctype = UrlEncoded
+   }
+
+noField :: Field Handler Text
+noField = Field
+   { fieldParse = \rawVals _ ->
+                case rawVals of
+                  [a] -> return $ Right $ Just a
+                  [] -> return $ Right Nothing
+   , fieldView = \idAttr nameAttr otherAttrs eResult isReq ->
+       [whamlet|
+       <div .form-group>
+            <label for="#no">
+               Número: 
+            <input type="text" .form-control placeholder="" id=#{idAttr}-confirm name=#{nameAttr} *{otherAttrs} type=textField/>
+       |]
+   , fieldEnctype = UrlEncoded
+   }
+   
+coField :: Field Handler Text
+coField = Field
+  { fieldParse = \rawVals _ ->
+                case rawVals of
+                  [a] -> return $ Right $ Just a
+                  [] -> return $ Right Nothing
+  , fieldView = \idAttr nameAttr otherAttrs eResult isReq ->
+      [whamlet|
+      <br>
+      <div .form-group>
+            <label for="#co">
+              Complemento: 
+            <input type="text" .form-control placeholder="" id=#{idAttr}-confirm name=#{nameAttr} *{otherAttrs} type=textField/>
+      |]
+  , fieldEnctype = UrlEncoded
+  }
+     
