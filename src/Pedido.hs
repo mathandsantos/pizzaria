@@ -23,3 +23,26 @@ bebz = do
        
 widgetBebForm :: Route Sitio -> Enctype -> Widget -> Text -> Widget
 widgetBebForm x enctype widget y = $(whamletFile "templates/bebida.hamlet")       
+
+
+
+postPizzaR :: PedidoId -> Handler Html
+postPizzaR pedId = do
+            ((result, _), _) <- runFormPost $ formPiz pedId
+            case result of
+               FormSuccess (formPiz) -> do
+                  a<-runDB $ insert formPiz
+                  --let b = do toSqlKey(fromSqlKey(a))
+                  defaultLayout $ do
+                    addStylesheetRemote "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+                    addScriptRemote "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+                    addScriptRemote "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+                    toWidgetHead [hamlet|
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <meta name="keywords" content="Teste, Haskell">
+                    |]
+                    [whamlet|
+                        <h1> #{show a}  -  Inserido com sucesso. 
+                    |]
+                    redirect $ ListarPedidoR pedId
