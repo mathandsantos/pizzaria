@@ -254,4 +254,14 @@ getListarPedidoR ppId = do
                                     <a .btn .btn-default href=@{ConfirmarPedR ppId} role="button">
                                        Confirmar Pedido
                                              
-                         |]                     
+                         |]         
+                         
+getConfirmarPedR :: PedidoId -> Handler Html
+getConfirmarPedR pedId = do
+                           --runDB $ update pedId []
+                          defaultLayout [whamlet|
+                              <h1> Pedido enviado com sucesso. 
+                                 <br>
+                                 <a href=@{HomeR} .text-center .ye> 
+                                    Voltar
+                          |]                           
