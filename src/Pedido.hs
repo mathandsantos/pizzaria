@@ -65,3 +65,9 @@ postPizzaR pedId = do
                         <h1> #{show a}  -  Inserido com sucesso. 
                     |]
                     redirect $ ListarPedidoR pedId
+                    
+                    
+getBebidaR :: PedidoId -> Handler Html
+getBebidaR pedId = do
+                  (widget, enctype) <- generateFormPost $ formBeb pedId
+                  defaultLayout $ widgetBebForm (BebidaR pedId) enctype widget "Bebidas"                    
