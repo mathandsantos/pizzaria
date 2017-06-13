@@ -70,4 +70,21 @@ postPizzaR pedId = do
 getBebidaR :: PedidoId -> Handler Html
 getBebidaR pedId = do
                   (widget, enctype) <- generateFormPost $ formBeb pedId
-                  defaultLayout $ widgetBebForm (BebidaR pedId) enctype widget "Bebidas"                    
+                  defaultLayout $ widgetBebForm (BebidaR pedId) enctype widget "Bebidas"
+                  
+postBebidaR :: PedidoId -> Handler Html
+postBebidaR pedId = do
+            ((result, _), _) <- runFormPost $ formBeb pedId
+            case result of
+               FormSuccess (formBeb) -> do
+                  a<-runDB $ insert formBeb
+                  defaultLayout $ do
+                    addStylesheetRemote "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+                    addScriptRemote "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+                    addScriptRemote "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+                    toWidgetHead [hamlet|
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <meta name="keywords" content="Teste, Haskell">
+                    |]
+                    redirect $ ListarPedidoR pedId                  
