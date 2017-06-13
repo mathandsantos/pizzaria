@@ -74,7 +74,13 @@ instance YesodPersist Sitio where
        let pool = connPool master
        runSqlPool f pool
        
-       
+instance Yesod Sitio where
+    authRoute _ = Just LoginR
+    isAuthorized LoginR _ = return Authorized
+    isAuthorized HomeR _ = return Authorized
+    isAuthorized UsuarioR _= return Authorized
+    isAuthorized (StaticR _) _= return Authorized
+    isAuthorized _ _ = isUser       
        
 isUser = do
     mu <- lookupSession "_USER"
