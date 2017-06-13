@@ -63,3 +63,13 @@ PedidoBebida
     deriving Show
 |]
 
+staticFiles "static"
+
+mkYesodData "Sitio" $(parseRoutesFile "config/routes")
+
+instance YesodPersist Sitio where
+   type YesodPersistBackend Sitio = SqlBackend
+   runDB f = do
+       master <- getYesod
+       let pool = connPool master
+       runSqlPool f pool
