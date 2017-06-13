@@ -27,6 +27,15 @@ formUsuA :: Form Usuario
 formUsuA =  renderTable $ Usuario <$>
                 areq loginField "" Nothing <*>
                 areq senhaField "" Nothing <*>
+                areq nomeField "" Nothing <*>
+                areq telField "" Nothing <*>
+                areq cepField "" Nothing <*>
+                areq cidadeField "" Nothing <*>
+                areq bairroField "" Nothing <*>
+                areq endField "" Nothing <*>
+                areq noField "" Nothing <*> -- areq é obrigatório
+                aopt coField "" Nothing
+                
                 
 loginField :: Field Handler Text
 loginField = Field
