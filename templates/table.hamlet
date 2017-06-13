@@ -1,0 +1,82 @@
+         <table .table .table-striped .text-center>
+            <th .text-center>
+               Pizza
+            <th .text-center>
+               Preço
+            <th .text-center>
+               Descrição
+            <tr>
+               <td>
+                   Muçarela
+               <td>
+                   R$ 21,99
+               <td>
+                   Tomate em rodelas, mussarela e orégano
+            <tr>
+               <td>
+                   Frango com catupiry
+               <td>
+                   R$ 26,99
+               <td>
+                   Muçarela, frango, catupiry e orégano
+            
+            <tr>
+               <td>
+                   Portuguesa
+               <td>
+                   R$ 29,99
+               <td>
+                   Muçarela, presunto, ervilha, palmito, cebola, ovos, azeitona e orégano
+            
+            <tr>
+               <td>
+                   Quatro Queijos
+               <td>
+                   R$ 26,99
+               <td>
+                   Muçarela, catupiry, provolone, gorgonzola e orégan
+                   
+            <tr>
+               <td>
+                   Calabresa
+               <td>
+                   R$ 23,99
+               <td>
+                   Muçarela, calabresa, cebola e orégano
+                   
+            <tr>
+               <td>
+                   Brasileira
+               <td>
+                   R$ 27,99
+               <td>
+                   Muçarela, palmito, salame, bacon, catupiry e orégano
+            
+            <tr>
+               <td>
+                   Palmito
+               <td>
+                   R$ 25,99
+               <td>
+                   Muçarela, palmito, catupiry e orégano
+            <tr>
+               <td>
+                   Brócolis
+               <td>
+                   R$ 23,99
+               <td>
+                   Muçarela, palmito, tomate e brócolis
+            <tr>
+               <td>
+                   Banana
+               <td>
+                   R$ 25,99
+               <td>
+                   Leite condensado, banana, açúcar e canela
+            <tr>
+               <td>
+                   Brigadeiro
+               <td>
+                   R$ 25,99
+               <td>
+                   Leite condensado, muçarela, chocolate, chocolate granulado e cereja
