@@ -1,1 +1,14 @@
 /                                   HomeR             GET  
+/usuario                            UsuarioR          GET POST
+/usuario/alterar                    UsAltR            GET POST
+/login                              LoginR            GET POST
+/logout                             LogoutR           GET
+/pedido                             PedidoR           GET
+/pedido/pizza/#PedidoId             PizzaR            GET POST
+/pedido/bebida/#PedidoId            BebidaR           GET POST
+/pedido/#PedidoId                   ListarPedidoR     GET
+/pizza/#PedidoPizzaId               ExcluirPizzaR     GET
+/bebida/#PedidoBebidaId             ExcluirBebidaR    GET
+/excluir/#PedidoId                  ExcluirPedidoR    GET
+/confirmar/#PedidoId                ConfirmarPedR     GET
+/static                             StaticR           Static getStatic
