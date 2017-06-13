@@ -1,0 +1,46 @@
+      <header>
+        <nav .navbar .navbar-default>
+            <div .container-fluid>
+                <div .navbar-header>
+                    <a href="#" .navbar-brand .navbar-left>
+                        Pizzaria
+                    <button type="button" .navbar-toggle .collapsed 
+                      data-toggle="collapse" data-target="#bs-example-navbar-collapsed-1"
+                      aria-expanded="false">
+                         <span .sr-only>
+                            Toggle Navigation
+                         <span .icon-bar>
+                         <span .icon-bar>
+                         <span .icon-bar>
+                <div .collapse .navbar-collapse #bs-example-navbar-collapsed-1>
+                    <ul .nav .navbar-nav .navbar-right>
+                        <li> 
+                            <a href=@{PedidoR} .text-center .ye> 
+                                FAZER PEDIDO
+                        <li>
+                            <a href=@{UsuarioR} .text-center .ye>
+                                CADASTRAR
+                         <li>
+                            <a href=@{LogoutR} .text-center .ye>
+                                DESLOGAR
+                        <li>
+                            <a href=@{LoginR} .text-center .ye>
+                                LOGAR
+      <main>
+         <div .container mar-top>
+            <div .col-md-4 .col-md-offset-4 .mar-top>
+               <fieldset>
+                  <h1 .text-center>
+                     Login de usuário
+                  <form method="post" action=@{LoginR}>
+                     <div .form-group>
+                        <label for="user">
+                           Usuário: 
+                        <input type="text" class="form-control" id="user" name="user"/>
+                     <div class="form-group">
+                        <label for="pwd">
+                           Senha:
+                        <input type="password" class="form-control" name="pwd"/>
+                     <div class="text-center">
+                        <button type="submit" class="btn btn-default btn-submit">
+                           ENTRAR
