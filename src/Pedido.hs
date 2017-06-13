@@ -111,3 +111,9 @@ postBebidaR pedId = do
                         <meta name="keywords" content="Teste, Haskell">
                     |]
                     redirect $ ListarPedidoR pedId                  
+                    
+                    
+getExcluirPedidoR :: PedidoId -> Handler Html
+getExcluirPedidoR pid = do
+                        runDB $ delete pid
+                        redirect HomeR                    
