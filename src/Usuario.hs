@@ -45,4 +45,20 @@ nomeField = Field
             <input type="text" .form-control placeholder="" value="" id=#{idAttr}-confirm name=#{nameAttr} *{otherAttrs} type=textField/>
        |]
    , fieldEnctype = UrlEncoded
+   }
+
+telField :: Field Handler Text
+telField = Field
+   { fieldParse = \rawVals _ ->
+                case rawVals of
+                  [a] -> return $ Right $ Just a
+                  [] -> return $ Right Nothing
+   , fieldView = \idAttr nameAttr otherAttrs eResult isReq ->
+       [whamlet|
+       <div .form-group>
+            <label for="#tel">
+               Telefone: 
+            <input type="text" .form-control placeholder="" id=#{idAttr}-confirm name=#{nameAttr} *{otherAttrs} type=textField/>
+       |]
+   , fieldEnctype = UrlEncoded
    }   
