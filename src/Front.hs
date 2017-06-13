@@ -41,3 +41,96 @@ getHomeR = do
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="keywords" content="Teste, Haskell">
     |]
+     case emailS of
+     Nothing -> do
+         [whamlet|
+           <header>
+               <nav .navbar .navbar-default>
+                   <div .container-fluid>
+                       <div .navbar-header>
+                           <a href=@{HomeR} .navbar-brand .navbar-left>
+                               Pizzaria Haskeller
+                           <button type="button" .navbar-toggle .collapsed 
+                             data-toggle="collapse" data-target="#bs-example-navbar-collapsed-1"
+                             aria-expanded="false">
+                                <span .sr-only>
+                                   Toggle Navigation
+                                <span .icon-bar>
+                                <span .icon-bar>
+                                <span .icon-bar>
+                       <div .collapse .navbar-collapse #bs-example-navbar-collapsed-1>
+                           <ul .nav .navbar-nav .navbar-right>
+                               <li>
+                                  <a href=@{UsuarioR} .text-center .nav-custom .ye>
+                                     CADASTRAR
+                               <li>
+                                  <a href=@{LoginR} .text-center .nav-custom .ye>
+                                     LOGAR
+         |]
+     Just _ -> do
+         [whamlet|
+            <header>
+              <nav .navbar .navbar-default>
+                  <div .container-fluid>
+                      <div .navbar-header>
+                          <a href=@{HomeR} .navbar-brand .navbar-left>
+                              Pizzaria
+                          <button type="button" .navbar-toggle .collapsed 
+                            data-toggle="collapse" data-target="#bs-example-navbar-collapsed-1"
+                            aria-expanded="false">
+                               <span .sr-only>
+                                  Toggle Navigation
+                               <span .icon-bar>
+                               <span .icon-bar>
+                               <span .icon-bar>
+                      <div .collapse .navbar-collapse #bs-example-navbar-collapsed-1>
+                          <ul .nav .navbar-nav .navbar-right>
+                              <li>
+                                 <a href=@{PedidoR} .text-center .nav-custom .ye>
+                                    FAZER PEDIDO
+                              <li>
+                                 <a href=@{UsAltR} .text-center .nav-custom .ye>
+                                    ALTERAR
+                              <li>
+                                 <a href=@{LogoutR} .text-center .nav-custom .ye>
+                                    (#{certo}) DESLOGAR
+         |]
+ [whamlet|
+     <main>
+        <div .container>
+           <h1 .text-center>
+             Cardápio de Pizzas e Bebidas
+           <h2 .text-center>
+             Pizzas
+           <table .table .table-bordered .table-striped .text-center>
+             <th .text-center>
+                Pizza
+             <th .text-center>
+                Preço
+             <th .text-center>
+                Descrição
+             $forall Entity pid pizza <- listaPiz
+               <tr> 
+                   <td>
+                       #{pizzaNmPizza pizza} 
+                   <td>
+                       R$ #{pizzaVlPizza pizza} 
+                   <td>
+                       #{pizzaDsPizza pizza}
+          <div .container>
+             <h2 .text-center>
+                Bebidas
+             <div .col-xs-12 .col-sm-6 .col-sm-offset-4 .col-md-4 .col-md-offset-4>
+               <table .table .table-bordered .table-striped .text-center>
+                  <th .text-center>
+                     Bebida
+                  <th .text-center>
+                     Preço
+                  $forall Entity bid bebida <- listaBeb
+                     <tr> 
+                         <td>
+                             #{bebidaNmBebida bebida} 
+                         <td>
+                             R$ #{bebidaVlBebida bebida} 
+     
+ |]
