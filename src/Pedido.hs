@@ -39,7 +39,10 @@ pizs = do
 bords = do
        entidades <- runDB $ selectList [] [Asc BordaId] 
        optionsPairs $ fmap (\ent -> (bordaNmBorda $ entityVal ent, entityKey ent)) entidades  
-
+       
+       
+widgetPizzaForm :: Route Sitio -> Enctype -> Widget -> Text -> Widget
+widgetPizzaForm x enctype widget y = $(whamletFile "templates/pizza.hamlet")  
 
 getPedidoR :: Handler Html
 getPedidoR = do
