@@ -30,3 +30,19 @@ loginField = Field
        |]
    , fieldEnctype = UrlEncoded
    }                
+   
+nomeField :: Field Handler Text
+nomeField = Field
+   { fieldParse = \rawVals _ ->
+                case rawVals of
+                  [a] -> return $ Right $ Just a
+                  [] -> return $ Right Nothing
+   , fieldView = \idAttr nameAttr otherAttrs eResult isReq ->
+       [whamlet|
+       <div .form-group>
+            <label for="#name">
+               Nome: 
+            <input type="text" .form-control placeholder="" value="" id=#{idAttr}-confirm name=#{nameAttr} *{otherAttrs} type=textField/>
+       |]
+   , fieldEnctype = UrlEncoded
+   }   
