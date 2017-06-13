@@ -20,3 +20,6 @@ formBeb pedId= renderDivs $ PedidoBebida <$>
 bebz = do
        entidades <- runDB $ selectList [] [Asc BebidaNmBebida] 
        optionsPairs $ fmap (\ent -> (bebidaNmBebida $ entityVal ent, entityKey ent)) entidades
+       
+widgetBebForm :: Route Sitio -> Enctype -> Widget -> Text -> Widget
+widgetBebForm x enctype widget y = $(whamletFile "templates/bebida.hamlet")       
