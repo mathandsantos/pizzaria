@@ -25,6 +25,13 @@ widgetBebForm :: Route Sitio -> Enctype -> Widget -> Text -> Widget
 widgetBebForm x enctype widget y = $(whamletFile "templates/bebida.hamlet")       
 
 
+formPiz :: PedidoId -> Form PedidoPizza
+formPiz pedId= renderDivs $ PedidoPizza <$>
+             pure pedId <*>
+             areq (selectField pizs) "Pizza" Nothing <*>
+             areq (selectField bords) "Borda" Nothing
+
+
 
 getPedidoR :: Handler Html
 getPedidoR = do
