@@ -17,13 +17,6 @@ formBeb pedId= renderDivs $ PedidoBebida <$>
              pure pedId <*>
              areq (selectField bebz) "Bebida" Nothing 
 
-bebz = do
-       entidades <- runDB $ selectList [] [Asc BebidaNmBebida] 
-       optionsPairs $ fmap (\ent -> (bebidaNmBebida $ entityVal ent, entityKey ent)) entidades
-       
-widgetBebForm :: Route Sitio -> Enctype -> Widget -> Text -> Widget
-widgetBebForm x enctype widget y = $(whamletFile "templates/bebida.hamlet")       
-
 
 formPiz :: PedidoId -> Form PedidoPizza
 formPiz pedId= renderDivs $ PedidoPizza <$>
@@ -40,9 +33,18 @@ bords = do
        entidades <- runDB $ selectList [] [Asc BordaId] 
        optionsPairs $ fmap (\ent -> (bordaNmBorda $ entityVal ent, entityKey ent)) entidades  
        
+
+bebz = do
+       entidades <- runDB $ selectList [] [Asc BebidaNmBebida] 
+       optionsPairs $ fmap (\ent -> (bebidaNmBebida $ entityVal ent, entityKey ent)) entidades
+ 
+widgetBebForm :: Route Sitio -> Enctype -> Widget -> Text -> Widget
+widgetBebForm x enctype widget y = $(whamletFile "templates/bebida.hamlet")       
+       
        
 widgetPizzaForm :: Route Sitio -> Enctype -> Widget -> Text -> Widget
 widgetPizzaForm x enctype widget y = $(whamletFile "templates/pizza.hamlet")  
+
 
 getPedidoR :: Handler Html
 getPedidoR = do
@@ -62,6 +64,7 @@ getPedidoR = do
                               <h1> #{show a}  -  Inserido com sucesso. 
                             |]
                             redirect $ ListarPedidoR a
+
                             
 getPizzaR :: PedidoId -> Handler Html
 getPizzaR pedId = do
@@ -117,7 +120,7 @@ getExcluirPedidoR :: PedidoId -> Handler Html
 getExcluirPedidoR pid = do
                         runDB $ delete pid
                         redirect HomeR              
-                        ]
+                        
 getExcluirPizzaR :: PedidoPizzaId -> Handler Html
 getExcluirPizzaR ppId = do
                        runDB $ delete ppId
@@ -140,15 +143,11 @@ getListarPedidoR ppId = do
                      userPedBo <- return $ fmap (pedidoPizzaBordaId . entityVal) $ pedidoP -- Lista BordaID
                      listaBordas <- sequence $ map (\borda -> runDB $ get404 borda) userPedBo --LIST ENTIDADE Borda
                      listaVlBorda <- return $ map(\borda -> bordaVlBorda borda) listaBordas
-                     --listaPizzas <- sequence $ map (\pizza -> runDB $ selectFirst [PizzaId ==. pizza][]) userPed --LIST ENTIDADE PIZZA
+                    
                      listaPizzas <- sequence $ map (\pizza -> runDB $ get404 pizza) userPedP --LIST ENTIDADE PIZZA
                      listaNmPizza <- return $ map(\pizza -> pizzaNmPizza pizza) listaPizzas --Lista com Nomes de Pizzas
                      listaVlPizza <- return $ map(\pizza -> pizzaVlPizza pizza) listaPizzas --Lista com Nomes de Pizzas
-                     
-                     --listaTudo <- sequence $ map (\pizza borda -> runDB $ get404 $ pizza . borda) userPedP
-                     --filmes <- sequence $ fmap (\r -> runDB $ get404 $ reviewFilme $ entityVal r) listaReviews
-                     --listaTudo <- sequence $ fmap (\r -> runDB $ get404 $ reviewFilme $ entityVal r) listaReviews 
-                     -- map (\pizza -> show pizza) listaNmPizza -- Mostra todas as pizzas
+               
                      pedidoB <- runDB $ selectList [PedidoBebidaPedidoId ==. ppId] [] -- Entidade PedidoBebida
                      userPedB <- return $ fmap (pedidoBebidaBebidaId . entityVal) $ pedidoB -- Lista BebidaID
                      
@@ -156,11 +155,6 @@ getListarPedidoR ppId = do
                      listaNmBebida <- return $ map(\bebida -> bebidaNmBebida bebida) listaBebidas --Lista com Nomes de Bebidas
                      listaVlBebida <- return $ map(\bebida -> bebidaVlBebida bebida) listaBebidas --Lista com Nomes de Bebidas
                      
-                     --pedidoBo <- runDB $ selectList [PedidoPizzaBordaId ==. ppId] [] -- Entidade Borda
-                     --userPedBo <- return $ fmap (pedidoBebidaBebidaId . entityVal) $ pedidoB -- Lista BebidaID
-                     
-                     --listaBebidas <- sequence $ map (\bebida -> runDB $ get404 bebida) userPedB --LIST ENTIDADE BEBIDAS
-                     --listaNmBebida <- return $ map(\bebida -> bebidaNmBebida bebida) listaBebidas --Lista com Nomes de Bebidas
                      let soma = somarTotal(listaVlBebida) + somarTotal(listaVlBorda) + somarTotal(listaVlPizza)
                      
                      
@@ -264,4 +258,4 @@ getConfirmarPedR pedId = do
                                  <br>
                                  <a href=@{HomeR} .text-center .ye> 
                                     Voltar
-                          |]                           
+                          |]  

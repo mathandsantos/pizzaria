@@ -1,4 +1,4 @@
-/                                   HomeR             GET  
+/                                   HomeR             GET
 /usuario                            UsuarioR          GET POST
 /usuario/alterar                    UsAltR            GET POST
 /login                              LoginR            GET POST
